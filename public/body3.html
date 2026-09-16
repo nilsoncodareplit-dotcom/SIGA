@@ -1,0 +1,87 @@
+<div class="modal fade" id="mAgd"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><b class="df" id="maT">Novo agendamento</b><button class="btn-close" data-bs-dismiss="modal"></button></div>
+ <div class="modal-body"><div class="row g-2">
+  <div class="col-md-6"><label class="fl">Agricultor(a) *</label><select class="inp" id="fAgri" title="Selecione o agricultor"></select></div>
+  <div class="col-md-6"><label class="fl">Serviço *</label><select class="inp" id="fServ" title="Selecione o serviço desejado"></select></div>
+  <div class="col-md-6"><label class="fl">Técnico responsável</label><select class="inp" id="fTec" title="Selecione o técnico que fará o atendimento"></select></div>
+  <div class="col-3"><label class="fl">Data</label><input type="date" class="inp" id="fData" title="Informe a data do agendamento"></div>
+  <div class="col-3"><label class="fl">Hora</label><input type="time" class="inp" id="fHora" value="09:00" title="Informe a hora do agendamento"></div>
+  <div class="col-md-6"><label class="fl">Status</label><select class="inp" id="fStat" title="Defina o status atual do agendamento"></select></div>
+  <div class="col-12"><label class="fl">Observações</label><textarea class="inp" id="fObs" rows="2" title="Adicione observações ou detalhes adicionais (opcional)"></textarea></div>
+ </div></div>
+ <div class="modal-footer"><button class="btn-g" data-bs-dismiss="modal">Cancelar</button><button class="btn-p" onclick="saveAgd()">Salvar agendamento</button></div></div></div></div>
+
+<div class="modal fade" id="mAgdV"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><b class="df" id="avT">Agendamento</b><button class="btn-close" data-bs-dismiss="modal"></button></div>
+ <div class="modal-body" id="avB"></div><div class="modal-footer flex-wrap" id="avA"></div></div></div></div>
+
+<div class="modal fade" id="mAgri"><div class="modal-dialog modal-xl"><div class="modal-content"><div class="modal-header"><b class="df" id="gT">Novo agricultor</b><button class="btn-close" data-bs-dismiss="modal"></button></div>
+ <div class="modal-body"><div class="row g-2">
+  <div class="col-12 mn" style="font-size:.64rem;color:var(--am);letter-spacing:.16em">DADOS PESSOAIS</div>
+  <div class="col-md-5"><label class="fl">Nome completo *</label><input class="inp" id="gNome" title="Digite o nome completo do agricultor"></div>
+  <div class="col-md-3"><label class="fl">CPF</label><input class="inp" id="gCpf" title="Digite o CPF (apenas números ou no formato 000.000.000-00)"></div>
+  <div class="col-md-2"><label class="fl">RG</label><input class="inp" id="gRg" title="Digite o Registro Geral (RG)"></div>
+  <div class="col-md-2"><label class="fl">NIS</label><input class="inp" id="gNis" title="Digite o Número de Identificação Social (NIS)"></div>
+  <div class="col-md-3"><label class="fl">DAP/CAF</label><input class="inp" id="gDap" title="Digite o número da Declaração de Aptidão (DAP) ou Cadastro Nacional da Agricultura Familiar (CAF)"></div>
+  <div class="col-md-3"><label class="fl">Nascimento</label><input type="date" class="inp" id="gNasc" title="Selecione ou digite a data de nascimento"></div>
+  <div class="col-3"><label class="fl">Sexo</label><select class="inp" id="gSexo" title="Selecione o sexo"><option>Feminino</option><option>Masculino</option></select></div>
+  <div class="col-3"><label class="fl">Estado civil</label><select class="inp" id="gCiv" title="Selecione o estado civil"><option>Solteiro(a)</option><option>Casado(a)</option><option>Viúvo(a)</option><option>Divorciado(a)</option></select></div>
+  <div class="col-md-3"><label class="fl">Telefone</label><input class="inp" id="gTel" title="Digite o telefone de contato principal"></div>
+  <div class="col-md-3"><label class="fl">WhatsApp</label><input class="inp" id="gWha" title="Digite o número do WhatsApp"></div>
+  <div class="col-md-6"><label class="fl">E-mail</label><input class="inp" id="gMail" title="Digite o e-mail de contato"></div>
+  <div class="col-12 mn mt-2" style="font-size:.64rem;color:var(--am);letter-spacing:.16em">ENDEREÇO</div>
+  <div class="col-2"><label class="fl">CEP</label><input class="inp" id="gCep" title="Digite o CEP do endereço"></div>
+  <div class="col-4"><label class="fl">Comunidade</label><input class="inp" id="gCom" title="Informe a comunidade onde reside"></div>
+  <div class="col-3"><label class="fl">Ramal</label><input class="inp" id="gRam" title="Informe o ramal de acesso, se houver"></div>
+  <div class="col-3"><label class="fl">Bairro</label><input class="inp" id="gBai" title="Informe o bairro"></div>
+  <div class="col-5"><label class="fl">Rua</label><input class="inp" id="gRua" title="Informe o nome da rua ou avenida"></div>
+  <div class="col-2"><label class="fl">Número</label><input class="inp" id="gNum" title="Informe o número da residência"></div>
+  <div class="col-5"><label class="fl">Coordenadas GPS</label><input class="inp" id="gGps" placeholder="-1.987, -47.921" title="Informe a latitude e longitude da propriedade (ex: -1.987, -47.921)"></div>
+  <div class="col-12 mn mt-2" style="font-size:.64rem;color:var(--am);letter-spacing:.16em">PRODUÇÃO RURAL</div>
+  <div class="col-md-4"><label class="fl">Cultura principal</label><input class="inp" id="gCul" title="Descreva a principal cultura produzida"></div>
+  <div class="col-2"><label class="fl">Área (ha)</label><input class="inp" id="gAre" title="Informe a área total plantada em hectares"></div>
+  <div class="col-3"><label class="fl">Qtd. produzida (t)</label><input class="inp" id="gPro" title="Informe a quantidade aproximada produzida em toneladas"></div>
+  <div class="col-3"><label class="fl">Tipo de produção</label><select class="inp" id="gTip" title="Selecione se a produção é vegetal, animal ou mista"><option>Vegetal</option><option>Animal</option><option>Mista</option></select></div>
+  <div class="col-md-5 d-flex align-items-end pb-1"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="gFam" checked title="Marque se a produção é proveniente da agricultura familiar"><label class="form-check-label">Agricultura familiar</label></div></div>
+  <div class="col-md-7"><label class="fl">Cooperativa vinculada</label><select class="inp" id="gCoop" title="Selecione a cooperativa à qual o agricultor está associado (opcional)"><option value="">— Nenhuma —</option></select></div>
+  <div class="col-12 mn mt-2" style="font-size:.64rem;color:var(--am);letter-spacing:.16em">ANEXOS (RG · CPF · CAF · RESIDÊNCIA · FOTOS)</div>
+  <div class="col-12"><input type="file" class="inp" multiple title="Selecione os arquivos comprobatórios (RG, CPF, CAF, comprovante de residência, fotos)"></div>
+ </div></div>
+ <div class="modal-footer"><button class="btn-g" data-bs-dismiss="modal">Cancelar</button><button class="btn-p" onclick="saveAgri()">Salvar cadastro</button></div></div></div></div>
+
+<div class="modal fade" id="mUser"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><b class="df" id="uT2">Novo usuário</b><button class="btn-close" data-bs-dismiss="modal"></button></div>
+ <div class="modal-body"><div class="row g-2">
+  <div class="col-12"><label class="fl">Nome</label><input class="inp" id="uNome" title="Digite o nome completo do usuário"></div>
+  <div class="col-8"><label class="fl">E-mail</label><input class="inp" id="uEmail" title="Digite o e-mail institucional para login"></div>
+  <div class="col-4"><label class="fl">Senha</label><input class="inp" id="uSenha" type="password" title="Digite uma senha segura para acesso"></div>
+  <div class="col-6"><label class="fl">Papel</label><select class="inp" id="uPapel" title="Selecione o nível de permissão (Usuário Comum ou Administrador Municipal)"><option value="user">Usuário Comum</option><option value="admin">Administrador Municipal</option></select></div>
+  <div class="col-6 d-flex align-items-end pb-1"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="uAtivo" checked title="Define se o usuário pode acessar o sistema"><label class="form-check-label">Ativo</label></div></div>
+ </div></div>
+ <div class="modal-footer"><button class="btn-g" data-bs-dismiss="modal">Cancelar</button><button class="btn-p" onclick="saveUser()">Salvar usuário</button></div></div></div></div>
+
+<div class="modal fade" id="mPerms"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><b class="df" id="pT2">Permissões</b><button class="btn-close" data-bs-dismiss="modal"></button></div>
+ <div class="modal-body" id="pGrid"></div>
+ <div class="modal-footer"><button class="btn-g" data-bs-dismiss="modal">Cancelar</button><button class="btn-p" onclick="savePerms()">Salvar permissões</button></div></div></div></div>
+
+<div class="modal fade" id="mConf"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-body text-center p-4">
+ <svg class="ic" style="width:40px;height:40px;color:var(--rd)"><use href="#i-warn"/></svg><h5 class="df mt-2" id="cT2"></h5><p style="color:var(--mut)" id="cM2"></p>
+ <div class="d-flex gap-2 justify-content-center"><button class="btn-g" data-bs-dismiss="modal">Cancelar</button><button class="btn text-white" style="background:var(--rd)" id="cOk2">Confirmar</button></div></div></div></div></div>
+
+<div class="modal fade" id="mDenied"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-body text-center p-4">
+ <svg class="ic" style="width:42px;height:42px;color:var(--rd)"><use href="#i-lock"/></svg>
+ <h5 class="df mt-2">Acesso restrito</h5><p style="font-weight:600">Você não possui permissão para excluir registros. Procure um administrador.</p>
+ <button class="btn-g w-100" data-bs-dismiss="modal">Entendi</button></div></div></div></div>
+
+<div class="modal fade" id="mEnt"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><b class="df" id="eT2"></b><button class="btn-close" data-bs-dismiss="modal"></button></div>
+ <div class="modal-body row g-2" id="eDyn"></div>
+ <div class="modal-footer"><button class="btn-g" data-bs-dismiss="modal">Cancelar</button><button class="btn-p" onclick="saveEnt()">Salvar</button></div></div></div></div>
+
+<div class="modal fade" id="mTen"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><b class="df">Cadastrar município</b><button class="btn-close" data-bs-dismiss="modal"></button></div>
+ <div class="modal-body row g-2">
+  <div class="col-8"><label class="fl">Município</label><input class="inp" id="tNome" title="Digite o nome do município"></div>
+  <div class="col-4"><label class="fl">Sigla</label><input class="inp" id="tSigla" title="Digite a sigla do município (ex: STM)"></div>
+  <div class="col-6"><label class="fl">Plano inicial</label><select class="inp" id="tPlano" title="Selecione o plano de licenciamento contratado"><option value="ess">Essencial</option><option value="pro">Profissional</option></select></div>
+  <div class="col-6"><label class="fl">E-mail do admin</label><input class="inp" id="tEmail" title="Informe o e-mail do administrador principal deste município"></div>
+ </div>
+ <div class="modal-footer"><button class="btn-g" data-bs-dismiss="modal">Cancelar</button><button class="btn-p" onclick="saveTen()">Ativar tenant</button></div></div></div></div>
+
+<div class="offcanvas offcanvas-end" id="drw" style="width:470px"><div class="offcanvas-header"><b class="df" id="drwT"></b><button class="btn-close" data-bs-dismiss="offcanvas"></button></div><div class="offcanvas-body" id="drwB"></div></div>
+<div class="toastx" id="toasts"></div><div id="printArea"></div>

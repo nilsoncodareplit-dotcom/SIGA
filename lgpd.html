@@ -1,0 +1,42 @@
+  <section class="view" id="view-documentos">
+   <div class="vh"><div><div class="idx">06 · LEGAL</div><h1>Documentos & LGPD</h1></div></div>
+   <ul class="nav gap-2 mb-3">
+    <li><button class="btn-p" id="lgpdBtn0" onclick="lgpdTab(0)">Agricultor</button></li>
+    <li><button class="btn-g" id="lgpdBtn1" onclick="lgpdTab(1)">Servidor (Termos)</button></li>
+   </ul>
+   
+   <div id="lgpdPane0">
+    <div class="panel p-3 mb-3">
+     <label class="fl">Selecionar Agricultor</label>
+     <div class="d-flex gap-2">
+      <select class="inp" id="lgpdAgriSel" style="flex:1"></select>
+      <button class="btn-p" onclick="printLgpd(0)">Imprimir Todos</button>
+     </div>
+    </div>
+    
+    <div class="row g-2">
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">1. Termo de Ciência e Tratamento (LGPD)</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(1)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">2. Autorização para Compartilhamento</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(2)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">3. Termo de Atendimento Técnico</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(3)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">4. Declaração de Recebimento Docs</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(4)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">6. Consentimento para WhatsApp</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(6)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">7. Política de Privacidade Simplificada</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(7)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">8. Livro de Registro de Tratamento</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(8)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">9. Formulário de Solicitação LGPD</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(9)">Imprimir</button></div></div>
+    </div>
+   </div>
+   
+   <div id="lgpdPane1" hidden>
+    <div class="panel p-3 mb-3">
+     <label class="fl">Selecionar Servidor / Técnico</label>
+     <div class="d-flex gap-2">
+      <select class="inp" id="lgpdServSel" style="flex:1"></select>
+      <button class="btn-p" onclick="printLgpdServ(0)">Imprimir Todos</button>
+     </div>
+    </div>
+    <div class="row g-2">
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">5. Termo de Sigilo para Servidores</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpdServ(5)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">10. Termo de Responsabilidade (CAF)</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpdServ(10)">Imprimir</button></div></div>
+    </div>
+   </div>
+  </section>

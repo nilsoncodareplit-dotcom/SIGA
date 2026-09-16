@@ -1,0 +1,202 @@
+<div id="app" class="shell" hidden>
+ <aside class="side grain" id="side">
+  <div class="brand"><svg class="ic" style="width:30px;height:30px"><use href="#i-logo"/></svg><div><b class="df">SIGA PARÁ</b><div class="mn" style="font-size:.58rem;letter-spacing:.16em;color:#9fb39b">GESTÃO DA AGRICULTURA</div></div></div>
+  <div class="tcard" id="tCard"></div>
+  <nav id="sideNav" class="flex-grow-1"></nav>
+  <div class="p-3" style="border-top:1px solid #ffffff14"><button class="btn w-100 d-flex gap-2 justify-content-center" style="color:#e8b7a0" onclick="logout()"><svg class="ic"><use href="#i-out"/></svg>Encerrar sessão</button></div>
+ </aside>
+ <div class="main">
+  <header class="top">
+   <button class="ib d-lg-none" onclick="document.getElementById('side').classList.toggle('open')">☰</button>
+   <div><div class="mn" id="modIdx" style="font-size:.62rem;color:var(--am);letter-spacing:.2em"></div><b class="df" id="modTitle" style="font-size:1.05rem"></b></div>
+   <div class="ms-auto d-flex align-items-center gap-2">
+    <span class="chip st2 mn" title="Expiração por inatividade"><svg class="ic" style="width:13px;height:13px"><use href="#i-clk"/></svg><span id="sessT">30:00</span></span>
+    <button class="ib" id="btnTheme" onclick="toggleTheme()"><svg class="ic"><use href="#i-moon"/></svg></button>
+    <div class="position-relative"><button class="ib" data-bs-toggle="dropdown"><svg class="ic"><use href="#i-bell"/></svg></button><span id="bellN" class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background:var(--rd);font-size:.58rem">0</span>
+     <div class="dropdown-menu dropdown-menu-end p-2" style="width:320px;background:var(--sf);border-color:var(--ln)" id="bellList"></div></div>
+    <div class="dropdown"><button class="ib" data-bs-toggle="dropdown" style="width:auto;padding:0 10px;gap:8px;display:flex;align-items:center"><span id="uAv" class="df" style="font-weight:800;color:var(--am2)"></span><span id="uNm" class="d-none d-md-inline" style="font-size:.8rem"></span></button>
+     <div class="dropdown-menu dropdown-menu-end p-2" style="background:var(--sf);border-color:var(--ln)"><span class="chip st3" id="uRole"></span><button class="btn w-100 mt-2 btn-g" onclick="logout()">Sair</button></div></div>
+   </div>
+  </header>
+  <main class="content">
+
+  <section class="view" id="view-dashboard">
+   <div class="vh"><div><div class="idx">01 · PAINEL</div><h1 id="dHello"></h1><div class="mn" style="font-size:.7rem;color:var(--mut)" id="dDate"></div></div>
+    <div class="d-flex gap-2"><button class="btn-p d-flex gap-2" onclick="openAgd()"><svg class="ic"><use href="#i-plus"/></svg>Novo agendamento</button><button class="btn-g d-flex gap-2" onclick="openAgri()"><svg class="ic"><use href="#i-plus"/></svg>Agricultor</button></div></div>
+   <div class="row g-3 mb-3" id="kRow"></div>
+   <div class="row g-3">
+    <div class="col-lg-7"><div class="panel"><div class="ph">Evolução de agendamentos · 6 meses</div><div class="p-3" style="position: relative; height: 220px; width: 100%;"><canvas id="chLine"></canvas></div></div></div>
+    <div class="col-lg-5"><div class="panel"><div class="ph">Serviços mais procurados</div><div class="p-3" style="position: relative; height: 220px; width: 100%;"><canvas id="chBar"></canvas></div></div></div>
+    <div class="col-lg-4"><div class="panel"><div class="ph">Status do mês</div><div class="p-3" style="position: relative; height: 260px; width: 100%;"><canvas id="chDon"></canvas></div></div></div>
+    <div class="col-lg-4"><div class="panel"><div class="ph">Comunidades mais atendidas</div><div class="p-3" id="rankCom"></div></div></div>
+    <div class="col-lg-4"><div class="panel"><div class="ph">Próximos atendimentos</div><div id="upList"></div></div></div>
+    <div class="col-12"><div class="panel"><div class="ph">Atividade recente</div><div id="actFeed" class="p-3"></div></div></div>
+   </div>
+  </section>
+
+  <section class="view" id="view-calendario">
+   <div class="vh"><div><div class="idx">02 · AGENDA</div><h1>Calendário de atendimentos</h1></div>
+    <div class="d-flex gap-2 flex-wrap">
+     <select class="inp" style="width:auto" id="cTec" onchange="renderCal()"></select>
+     <select class="inp" style="width:auto" id="cServ" onchange="renderCal()"></select>
+     <button class="btn-g" onclick="calNav(-1)">‹</button><button class="btn-g" onclick="calNav(0)">Hoje</button><button class="btn-g" onclick="calNav(1)">›</button>
+    </div></div>
+   <div class="panel p-3 mb-2"><div class="d-flex justify-content-between flex-wrap gap-2"><b class="df" id="cLabel"></b><span class="mn" style="font-size:.7rem;color:var(--mut)" id="cCount"></span></div>
+    <div class="d-flex gap-2 mt-2 flex-wrap" id="cLeg"></div></div>
+   <div class="cal mb-1" id="cHead"></div><div class="cal" id="cGrid"></div>
+   <p class="mn mt-2" style="font-size:.68rem;color:var(--mut)">ARRASTE UM ATENDIMENTO PARA OUTRO DIA PARA REAGENDAR · CLIQUE NO DIA PARA NOVO AGENDAMENTO · CLIQUE NO ITEM PARA DETALHES</p>
+  </section>
+
+  <section class="view" id="view-agendamentos">
+   <div class="vh"><div><div class="idx">03 · ATENDIMENTOS</div><h1>Agendamentos</h1></div>
+    <div class="d-flex gap-2"><button class="btn-g d-flex gap-2" onclick="expAgd()"><svg class="ic"><use href="#i-dl"/></svg>Excel</button><button class="btn-p d-flex gap-2" onclick="openAgd()"><svg class="ic"><use href="#i-plus"/></svg>Novo</button></div></div>
+   <div class="panel p-2 mb-2 d-flex gap-2 flex-wrap">
+    <input class="inp" style="max-width:220px" id="aQ" placeholder="Buscar agricultor / nº…" oninput="S.f.a.q=this.value;renderAgd()" title="Digite o nome, CPF ou número do agendamento para buscar">
+    <select class="inp" style="width:auto" id="aSt" onchange="S.f.a.s=this.value;renderAgd()"></select>
+    <select class="inp" style="width:auto" id="aSv" onchange="S.f.a.v=this.value;renderAgd()"></select>
+    <select class="inp" style="width:auto" id="aTc" onchange="S.f.a.t=this.value;renderAgd()"></select>
+   </div>
+   <div class="panel"><div class="table-responsive"><table class="tbl"><thead><tr><th>Nº</th><th>Data · Hora</th><th>Agricultor</th><th>Serviço</th><th>Técnico</th><th>Status</th><th class="text-end">Ações</th></tr></thead><tbody id="aTbody"></tbody></table></div>
+   <div class="p-2 d-flex justify-content-between align-items-center"><span class="mn" style="font-size:.68rem;color:var(--mut)" id="aCount"></span><span id="aPag"></span></div></div>
+  </section>
+
+  <section class="view" id="view-agricultores">
+   <div class="vh"><div><div class="idx">04 · CADASTRO RURAL</div><h1>Agricultores</h1></div>
+    <div class="d-flex gap-2"><button class="btn-g d-flex gap-2" onclick="expAgri()"><svg class="ic"><use href="#i-dl"/></svg>Excel</button><button class="btn-p d-flex gap-2" onclick="openAgri()"><svg class="ic"><use href="#i-plus"/></svg>Novo agricultor</button></div></div>
+   <div class="panel p-2 mb-2 d-flex gap-2 flex-wrap">
+    <input class="inp" style="max-width:260px" id="rQ" placeholder="Buscar nome / CPF…" oninput="S.f.r.q=this.value;renderAgri()" title="Digite o nome ou CPF para buscar o agricultor">
+    <select class="inp" style="width:auto" id="rCm" onchange="S.f.r.c=this.value;renderAgri()"></select>
+   </div>
+   <div class="panel"><div class="table-responsive"><table class="tbl"><thead><tr><th>Agricultor(a)</th><th>CPF</th><th>Comunidade</th><th>Cultura</th><th>CAF/DAP</th><th class="text-end">Ações</th></tr></thead><tbody id="rTbody"></tbody></table></div>
+   <div class="p-2 d-flex justify-content-between align-items-center"><span class="mn" style="font-size:.68rem;color:var(--mut)" id="rCount"></span><span id="rPag"></span></div></div>
+  </section>
+
+  <section class="view" id="view-cadastros">
+   <div class="vh"><div><div class="idx">05 · BASE MUNICIPAL</div><h1>Cadastros da Secretaria</h1></div></div>
+   <ul class="nav gap-2 mb-3" id="cadTabs">
+    <li><button class="btn-p" onclick="cadTab(0,this)">Técnicos</button></li>
+    <li><button class="btn-g" onclick="cadTab(1,this)">Comunidades</button></li>
+    <li><button class="btn-g" onclick="cadTab(2,this)">Associações & Cooperativas</button></li>
+    <li><button class="btn-g" onclick="cadTab(3,this)">Veículos & Máquinas</button></li>
+   </ul>
+   <div class="panel"><div class="ph"><span id="cadTitle">Técnicos</span><button class="btn-p btn-sm d-flex gap-1" onclick="openEnt()"><svg class="ic" style="width:14px;height:14px"><use href="#i-plus"/></svg>Adicionar</button></div>
+   <div class="table-responsive"><table class="tbl"><thead id="cadHead"></thead><tbody id="cadBody"></tbody></table></div></div>
+  </section>
+
+  <section class="view" id="view-documentos">
+   <div class="vh"><div><div class="idx">06 · LEGAL</div><h1>Documentos & LGPD</h1></div></div>
+   <ul class="nav gap-2 mb-3">
+    <li><button class="btn-p" id="lgpdBtn0" onclick="lgpdTab(0)">Agricultor</button></li>
+    <li><button class="btn-g" id="lgpdBtn1" onclick="lgpdTab(1)">Servidor (Termos)</button></li>
+   </ul>
+   
+   <div id="lgpdPane0">
+    <div class="panel p-3 mb-3">
+     <label class="fl">Selecionar Agricultor</label>
+     <div class="d-flex gap-2">
+      <select class="inp" id="lgpdAgriSel" style="flex:1"></select>
+      <button class="btn-p" onclick="printLgpd(0)">Imprimir Todos</button>
+     </div>
+    </div>
+    
+    <div class="row g-2">
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">1. Termo de Ciência e Tratamento (LGPD)</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(1)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">2. Autorização para Compartilhamento</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(2)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">3. Termo de Atendimento Técnico</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(3)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">4. Declaração de Recebimento Docs</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(4)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">6. Consentimento para WhatsApp</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(6)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">7. Política de Privacidade Simplificada</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(7)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">8. Livro de Registro de Tratamento</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(8)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">9. Formulário de Solicitação LGPD</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpd(9)">Imprimir</button></div></div>
+    </div>
+   </div>
+   
+   <div id="lgpdPane1" hidden>
+    <div class="panel p-3 mb-3">
+     <label class="fl">Selecionar Servidor / Técnico</label>
+     <div class="d-flex gap-2">
+      <select class="inp" id="lgpdServSel" style="flex:1"></select>
+      <button class="btn-p" onclick="printLgpdServ(0)">Imprimir Todos</button>
+     </div>
+    </div>
+    <div class="row g-2">
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">5. Termo de Sigilo para Servidores</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpdServ(5)">Imprimir</button></div></div>
+     <div class="col-md-6"><div class="panel p-2 d-flex justify-content-between align-items-center"><span class="text-truncate">10. Termo de Responsabilidade (CAF)</span> <button class="btn-g btn-sm text-nowrap" onclick="printLgpdServ(10)">Imprimir</button></div></div>
+    </div>
+   </div>
+  </section>
+  <section class="view" id="view-relatorios">
+   <div class="vh"><div><div class="idx">06 · INTELIGÊNCIA</div><h1>Relatórios gerenciais</h1></div>
+    <div class="d-flex gap-2 align-items-end"><div><label class="fl">De</label><input type="date" class="inp" id="repDe"></div><div><label class="fl">Até</label><input type="date" class="inp" id="repAte"></div></div></div>
+   <div class="row g-3 mb-3" id="repCards"></div>
+   <div class="panel" id="repPrev" hidden><div class="ph"><span id="repTitle"></span><button class="ib" onclick="document.getElementById('repPrev').hidden=true"><svg class="ic" style="width:14px;height:14px"><use href="#i-x"/></svg></button></div><div class="table-responsive"><table class="tbl" id="repTbl"></table></div></div>
+  </section>
+
+  <section class="view" id="view-usuarios">
+   <div class="vh"><div><div class="idx">07 · EQUIPE</div><h1>Usuários & permissões</h1></div><button class="btn-p d-flex gap-2" onclick="openUser()"><svg class="ic"><use href="#i-plus"/></svg>Novo usuário</button></div>
+   <div class="panel"><div class="table-responsive"><table class="tbl"><thead><tr><th>Usuário</th><th>Papel</th><th>Permissões</th><th>Situação</th><th class="text-end">Ações</th></tr></thead><tbody id="uTbody"></tbody></table></div></div>
+  </section>
+
+  <section class="view" id="view-auditoria">
+   <div class="vh"><div><div class="idx">08 · TRILHA</div><h1>Auditoria & lixeira</h1></div></div>
+   <ul class="nav gap-2 mb-3"><li><button class="btn-p btn-sm" onclick="audTab(0)">Trilha de eventos</button></li><li><button class="btn-g btn-sm" onclick="audTab(1)">Lixeira (restaurar)</button></li></ul>
+   <div id="audPane0">
+    <div class="panel p-2 mb-2 d-flex gap-2"><input class="inp" style="max-width:240px" id="auQ" placeholder="Buscar usuário / registro…" oninput="renderAud()" title="Digite para filtrar os registros de auditoria"><select class="inp" style="width:auto" id="auT" onchange="renderAud()" title="Filtrar por tipo de ação"><option value="">Tipo: todos</option><option>login</option><option>inclusao</option><option>alteracao</option><option>exclusao</option><option>seguranca</option><option>planos</option></select></div>
+    <div class="panel"><div class="table-responsive"><table class="tbl"><thead><tr><th>Data · Hora</th><th>Usuário</th><th>IP</th><th>Ação</th><th>Registro</th><th>Tipo</th></tr></thead><tbody id="auTbody"></tbody></table></div></div>
+   </div>
+   <div id="audPane1" hidden><div class="panel"><div class="table-responsive"><table class="tbl"><thead><tr><th>Excluído em</th><th>Registro</th><th>Módulo</th><th class="text-end">Restaurar</th></tr></thead><tbody id="trTbody"></tbody></table></div></div></div>
+  </section>
+
+  <section class="view" id="view-config">
+   <div class="vh"><div><div class="idx">09 · SECRETARIA</div><h1>Configurações do município</h1></div><button class="btn-p" onclick="saveCfg()">Salvar alterações</button></div>
+   <div class="row g-3">
+    <div class="col-lg-6"><div class="panel p-3"><b class="df">Identidade</b>
+     <div class="row g-2 mt-1"><div class="col-8"><label class="fl">Nome da secretaria</label><input class="inp" id="cfNome" title="Digite o nome da secretaria municipal"></div><div class="col-4"><label class="fl">Sigla</label><input class="inp" id="cfSigla" title="Digite a sigla da secretaria"></div></div></div>
+     <div class="panel p-3 mt-3"><b class="df">Serviços oferecidos</b><div id="cfServ" class="mt-2 d-flex flex-wrap gap-2"></div></div></div>
+    <div class="col-lg-6"><div class="panel p-3"><b class="df">Notificações automáticas</b>
+     <div class="form-check form-switch mt-2"><input class="form-check-input" type="checkbox" id="cfMail" title="Ativa envio de e-mails para agricultores"><label class="form-check-label" for="cfMail">E-mail (confirmação, alteração, cancelamento, lembrete)</label></div>
+     <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="cfWhats" title="Ativa integração com WhatsApp"><label class="form-check-label" for="cfWhats">WhatsApp (API opcional)</label></div>
+     <div class="mt-2"><label class="fl">Lembrete de atendimento</label><select class="inp" id="cfLemb" title="Defina quando o agricultor receberá o lembrete"><option>2h antes</option><option>24h antes</option><option>48h antes</option></select></div></div>
+     <div class="panel p-3 mt-3"><b class="df">Segurança & backup</b>
+      <div class="mt-2"><label class="fl">Expirar sessão após inatividade</label><select class="inp" id="cfSess" title="Tempo máximo sem uso antes de deslogar"><option value="15">15 minutos</option><option value="30">30 minutos</option><option value="60">60 minutos</option></select></div>
+      <div id="cfBk" class="mt-3"></div>
+      <button class="btn-g btn-sm mt-2 d-flex gap-1" onclick="manualBk()"><svg class="ic" style="width:14px;height:14px"><use href="#i-dl"/></svg>Gerar backup manual agora</button></div></div>
+   </div>
+  </section>
+
+  <section class="view" id="view-municipios">
+   <div class="vh"><div><div class="idx">SA·01 · PLATAFORMA</div><h1>Municípios (tenants)</h1></div><button class="btn-p d-flex gap-2" onclick="M('mTen').show()"><svg class="ic"><use href="#i-plus"/></svg>Cadastrar município</button></div>
+   <div class="row g-3 mb-3" id="mkRow"></div>
+   <div class="panel"><div class="table-responsive"><table class="tbl"><thead><tr><th>Município</th><th>Plano de uso</th><th>Usuários</th><th>Agricultores</th><th>Armazenamento</th><th>Situação</th><th class="text-end">Ações do Super Admin</th></tr></thead><tbody id="mTbody"></tbody></table></div></div>
+  </section>
+
+  <section class="view" id="view-planos">
+   <div class="vh"><div><div class="idx">SA·02 · COMERCIAL</div><h1>Planos de uso da plataforma</h1></div></div>
+   <p style="color:var(--mut);max-width:780px">O <b>Super Admin</b> publica os planos disponíveis e ativa o plano de cada município na tela <b>Municípios</b>. O nível <b>Super Admin</b> é exclusivo da plataforma — nenhum município o contrata.</p>
+   <div class="row g-3" id="pCards"></div>
+  </section>
+
+  <section class="view" id="view-logs">
+   <div class="vh"><div><div class="idx">SA·03 · OBSERVABILIDADE</div><h1>Logs globais</h1></div>
+    <select class="inp" style="width:auto" id="lTen" onchange="renderLogs()"><option value="">Todos os municípios</option></select></div>
+   <div class="panel"><div class="table-responsive"><table class="tbl"><thead><tr><th>Data · Hora</th><th>Município</th><th>Usuário</th><th>Ação</th><th>Registro</th></tr></thead><tbody id="lTbody"></tbody></table></div></div>
+  </section>
+
+  <section class="view" id="view-infra">
+   <div class="vh"><div><div class="idx">SA·04 · INFRAESTRUTURA</div><h1>Infraestrutura & backups</h1></div><button class="btn-p" onclick="saveInfra()">Salvar</button></div>
+   <div class="row g-3">
+    <div class="col-lg-6"><div class="panel p-3"><b class="df d-flex gap-2 align-items-center"><svg class="ic"><use href="#i-mail"/></svg>SMTP (e-mails do sistema)</b>
+     <div class="row g-2 mt-1"><div class="col-8"><label class="fl">Host</label><input class="inp" id="iHost" value="smtp.siga.pa.gov.br" title="Servidor SMTP"></div><div class="col-4"><label class="fl">Porta</label><input class="inp" id="iPort" value="587" title="Porta do SMTP"></div>
+     <div class="col-6"><label class="fl">Usuário</label><input class="inp" id="iUser" value="no-reply@siga.pa.gov.br" title="Usuário do SMTP"></div><div class="col-6"><label class="fl">Senha</label><input class="inp" type="password" id="iPass" value="••••••••" title="Senha do SMTP"></div></div>
+     <div class="form-check form-switch mt-2"><input class="form-check-input" type="checkbox" id="iTls" checked title="Ativar TLS"><label class="form-check-label">TLS obrigatório</label></div></div>
+     <div class="panel p-3 mt-3"><b class="df">Backup automático</b>
+      <div class="row g-2 mt-1"><div class="col-6"><label class="fl">Horário diário</label><select class="inp" id="iBkH" title="Horário do backup automático"><option>01:00</option><option>02:00</option><option>03:00</option></select></div><div class="col-6"><label class="fl">Retenção (dias)</label><select class="inp" id="iBkR" title="Dias para manter o backup"><option>30</option><option>60</option><option>90</option></select></div></div></div></div>
+    <div class="col-lg-6"><div class="panel p-3"><b class="df">Indicadores da plataforma</b><div id="iStats" class="row g-2 mt-1"></div></div>
+     <div class="panel p-3 mt-3"><b class="df">Armazenamento por município</b><div id="iStore" class="mt-2"></div></div>
+     <div class="panel p-3 mt-3"><b class="df">Últimos backups</b><div id="iBkL" class="mt-2 mn" style="font-size:.72rem"></div></div></div>
+   </div>
+  </section>
+
+  </main>
+ </div>
+</div>
